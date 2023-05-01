@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  labels:
+    project: server-memories
+spec:
+  selector:
+    matchLabels:
+      project: server-memories
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        project: server-memories
+    spec:
+      containers:
+        - name: server
+          image: server/mern:10.0
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+  labels:
+    project: server-memories
+spec:
+  selector:
+    project: server-memories
+  ports:
+    - protocol: TCP
+      port: 3201
+      targetPort: 3000

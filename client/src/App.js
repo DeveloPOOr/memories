@@ -8,7 +8,6 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 
 const App = () => {
-  const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
     <BrowserRouter>

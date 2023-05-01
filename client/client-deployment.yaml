@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: mern-memories
+spec:
+  selector:
+    matchLabels:
+      project: client-memories
+  template:
+    metadata:
+      labels:
+         project: client-memories
+    spec:
+      containers:
+        - name: client
+          image: client/mern:12.0
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Never
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+  labels:
+    app: mern-memories
+spec:
+  type: NodePort
+  selector:
+    project: client-memories
+  ports:
+    - protocol: TCP
+      port: 3200
+      targetPort: 80
+      nodePort: 30008
